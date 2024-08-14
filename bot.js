@@ -1,7 +1,10 @@
 const { initializeApp } = require('firebase/app')
 const { getDatabase, ref, update, get } = require('firebase/database')
 const { Telegraf } = require('telegraf')
+require('dotenv').config()
 const bot = new Telegraf(process.env.BOT_TOKEN)
+
+
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
