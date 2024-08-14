@@ -22,18 +22,20 @@ const database = getDatabase(firebase)
 
 const registerUser = async newUserTelegramId => {
   const usersCollectionRef = ref(database, 'users')
+  
 
-  await update(usersCollectionRef, {
-    [newUserTelegramId]: {
-      points: 0,
-      timer: {
-        value: 28800,
-        isProcessing: false,
+    await update(usersCollectionRef, {
+      [newUserTelegramId]: {
+        points: 0,
+        timer: {
+          value: 28800,
+          isProcessing: false,
+        },
+        isHadNft: false,
       },
-      isHadNft: false,
-    },
-  })
-}
+    })
+  }
+
 
 const bindReferralToUser = async (referrerTelegramId, referralTelegramId) => {
   const referrerRef = ref(database, `users/${referrerTelegramId}`)
@@ -51,7 +53,7 @@ const bindReferralToUser = async (referrerTelegramId, referralTelegramId) => {
 }
 
 const getUser = async telegramId => {
-  const userRef = ref(`database, users/${telegramId}`)
+  const userRef = ref(database, `users/${telegramId}`)
 
   const user = (await get(userRef)).val()
 
