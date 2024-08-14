@@ -1,14 +1,13 @@
 {
-    "version": 2,
     "functions": {
-      "api/bot.js": {
-        "runtime": "nodejs14.x"
+      "api/": {
+        "includeFiles": [
+          "node_modules/telegraf/**",
+          "node_modules/firebase/**"
+        ]
       }
     },
-    "routes": [
-      {
-        "src": "/api/bot",
-        "dest": "/api/bot.js"
-      }
-    ]
+    "github": {
+      "silent": true
+    }
   }
