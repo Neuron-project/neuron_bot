@@ -75,9 +75,9 @@ bot.start(async ctx => {
       await bindReferralToUser(referrerId, currentTelegramUserId)
     }
 
-    await ctx.reply('Вы успешно зарегистрировались!')
+    await ctx.reply('You have successfully registered!')
   } else {
-    await ctx.reply('Вы уже зарегистрированы!')
+    await ctx.reply('You're already registered!')
   }
 })
 
