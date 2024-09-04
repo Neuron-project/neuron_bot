@@ -1,10 +1,12 @@
+
 const { initializeApp } = require('firebase/app')
 const { getDatabase, ref, update, get } = require('firebase/database')
 const { Telegraf } = require('telegraf')
+
 require('dotenv').config()
-const bot = new Telegraf(process.env.BOT_TOKEN)
 
 
+const bot = new Telegraf(process.env.BOT_TOKEN_REGISTER)
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -17,25 +19,22 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 }
 
+
 const firebase = initializeApp(firebaseConfig)
 const database = getDatabase(firebase)
 
 const registerUser = async newUserTelegramId => {
   const usersCollectionRef = ref(database, 'users')
-  
 
-    await update(usersCollectionRef, {
-      [newUserTelegramId]: {
-        points: 0,
-        timer: {
-          value: 28800,
-          isProcessing: false,
-        },
-        isHadNft: false,
-      },
-    })
-  }
-
+  await update(usersCollectionRef, {
+    [newUserTelegramId]: {
+      points: 0,
+      countDownTime: 0,
+      startTimer: 0,
+      isHadNft: false,
+    },
+  })
+}
 
 const bindReferralToUser = async (referrerTelegramId, referralTelegramId) => {
   const referrerRef = ref(database, `users/${referrerTelegramId}`)
@@ -77,7 +76,7 @@ bot.start(async ctx => {
 
     await ctx.reply('You have successfully registered!')
   } else {
-    await ctx.reply('You're already registered!')
+    await ctx.reply('You have already registered!')
   }
 })
 
